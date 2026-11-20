@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LifeOS 4.0 — Sincronizado</title>
+<style>
+:root{--bg:#0d1117;--panel:#151b24;--panel2:#1b2330;--line:#293342;--text:#edf1f7;--muted:#94a0b2;--accent:#b9a7f5;--accent2:#8e7be0;--green:#7bd6ad;--red:#f18e98;--gold:#e8c77a;--radius:17px}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 15% -10%,#25213b 0,transparent 38%),var(--bg);color:var(--text);font:15px/1.5 Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}
+button,input,select,textarea{font:inherit}button{cursor:pointer}.app{display:grid;grid-template-columns:245px 1fr;min-height:100vh}.sidebar{border-right:1px solid var(--line);padding:20px 14px;background:#10151d;position:sticky;top:0;height:100vh;display:flex;flex-direction:column;min-height:0;overflow:hidden}.brand{font-size:22px;font-weight:800;letter-spacing:-.8px;padding:0 12px 26px}.brand span{color:var(--accent)}.eyebrow{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:1.5px;padding:14px 12px 8px}.nav{display:grid;gap:5px;flex:0 1 auto;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding-right:3px}.sidebar>.eyebrow{flex:0 0 auto}.sidebar>.nav:last-of-type{flex:0 0 auto}.nav button{border:0;color:var(--muted);background:transparent;text-align:left;padding:11px 12px;border-radius:11px;display:flex;gap:12px;align-items:center}.nav button.active,.nav button:hover{background:var(--panel2);color:var(--text)}.nav .ico{width:20px;text-align:center}.side-bottom{position:static;flex:0 0 auto;margin-top:12px;padding-top:10px;background:#10151d}.season-mini{background:var(--panel);border:1px solid var(--line);padding:13px;border-radius:13px;font-size:12px;color:var(--muted)}.season-mini strong{display:block;color:var(--text);font-size:14px;margin-bottom:4px}
+main{padding:34px clamp(18px,4vw,54px) 60px;max-width:1500px;width:100%;margin:auto}.top{display:flex;justify-content:space-between;align-items:center;gap:16px;margin-bottom:28px}.greeting h1{font-size:clamp(25px,3vw,34px);letter-spacing:-1.2px;margin:0}.greeting p{margin:5px 0 0;color:var(--muted)}.top-actions{display:flex;gap:9px;align-items:center}.pill{border:1px solid var(--line);background:var(--panel);border-radius:999px;padding:9px 13px;color:var(--muted);font-size:12px}.btn{background:var(--accent);color:#171322;border:0;border-radius:10px;padding:10px 14px;font-weight:700}.btn:hover{background:#c9bafa}.btn.secondary{background:var(--panel2);border:1px solid var(--line);color:var(--text)}.btn.danger{background:#49252d;color:#ffdce0}.view{display:none}.view.active{display:block}.grid{display:grid;gap:15px}.stats{grid-template-columns:repeat(4,minmax(0,1fr));margin-bottom:16px}.card{background:linear-gradient(145deg,var(--panel),#141a23);border:1px solid var(--line);border-radius:var(--radius);padding:19px;min-width:0}.stat-label{color:var(--muted);font-size:12px}.stat-value{font-size:27px;font-weight:750;letter-spacing:-.8px;margin:7px 0 2px}.stat-sub{font-size:12px;color:var(--muted)}.accent{color:var(--accent)}.green{color:var(--green)}.gold{color:var(--gold)}.red{color:var(--red)}.section-head{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:27px 0 13px}.section-head h2{font-size:17px;margin:0;letter-spacing:-.3px}.section-head p{color:var(--muted);font-size:12px;margin:3px 0 0}.two{grid-template-columns:1.15fr .85fr}.three{grid-template-columns:repeat(3,minmax(0,1fr))}.progress{height:8px;background:#293241;border-radius:20px;overflow:hidden}.progress i{display:block;height:100%;background:linear-gradient(90deg,var(--accent2),#d2c6ff);border-radius:20px}.level-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}.level-badge{display:flex;align-items:center;gap:12px}.level-icon{width:44px;height:44px;display:grid;place-items:center;background:#2b2541;border:1px solid #514477;border-radius:14px;font-size:20px}.level-row h3{margin:0;font-size:16px}.level-row small{color:var(--muted)}.quest{display:flex;align-items:center;gap:12px;padding:12px 0;border-bottom:1px solid var(--line)}.quest:last-child{border:0}.quest input[type=checkbox]{accent-color:var(--accent);width:18px;height:18px}.quest-main{flex:1;min-width:0}.quest-main strong{display:block;font-size:13px}.quest-main small{color:var(--muted);font-size:11px}.xp{color:var(--gold);font-size:12px;font-weight:700;white-space:nowrap}.tag{font-size:10px;padding:4px 8px;border-radius:99px;background:#29253c;color:#cfc3ff}.empty{color:var(--muted);font-size:13px;padding:14px 0}.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.field{display:grid;gap:6px;margin:10px 0}.field label{font-size:12px;color:var(--muted)}input,select,textarea{background:#0f151e;border:1px solid var(--line);border-radius:9px;padding:10px 11px;color:var(--text);width:100%;outline:none}input:focus,select:focus,textarea:focus{border-color:var(--accent2)}textarea{min-height:75px;resize:vertical}.form-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.form-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:12px}.item-list{display:grid;gap:9px}.item{padding:14px;border:1px solid var(--line);background:#131a24;border-radius:12px;display:flex;justify-content:space-between;gap:12px;align-items:center}.item strong{font-size:13px}.item small{display:block;color:var(--muted);font-size:11px;margin-top:3px}.item-actions{display:flex;gap:6px;align-items:center}.icon-btn{border:1px solid var(--line);background:var(--panel2);color:var(--muted);border-radius:8px;padding:6px 9px}.muted{color:var(--muted)}.attribute{display:grid;grid-template-columns:110px 1fr 34px;gap:10px;align-items:center;margin:13px 0;font-size:12px}.attribute .progress{height:7px}.attribute b{text-align:right}.calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);gap:6px}.day{min-height:82px;padding:8px;border:1px solid var(--line);border-radius:9px;background:#121923;font-size:12px}.day.today{border-color:var(--accent2);background:#211d32}.day small{display:block;color:var(--muted);font-size:10px;margin-top:6px}.day-name{text-align:center;color:var(--muted);font-size:11px;padding:7px}.bar-chart{height:160px;display:flex;align-items:end;gap:10px;padding-top:15px}.bar-col{flex:1;display:flex;flex-direction:column;align-items:center;gap:7px;height:100%;justify-content:end}.bar{width:min(35px,80%);min-height:3px;border-radius:7px 7px 2px 2px;background:linear-gradient(0deg,#7967c7,var(--accent))}.bar-col small{font-size:10px;color:var(--muted)}.modal-back{position:fixed;inset:0;background:#0009;display:none;align-items:center;justify-content:center;padding:18px;z-index:10}.modal-back.show{display:flex}.modal{width:min(520px,100%);background:#171e29;border:1px solid var(--line);border-radius:18px;padding:23px;box-shadow:0 20px 80px #0009}.modal h2{margin:0 0 7px}.modal p{color:var(--muted);font-size:13px}.toast{position:fixed;bottom:22px;right:22px;background:#242c3a;border:1px solid var(--line);padding:12px 16px;border-radius:12px;display:none;z-index:20}.toast.show{display:block}.mobile-menu{display:none}
+/* LifeOS v2 */
+.routine-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:13px}.routine-table{border-collapse:collapse;min-width:850px;width:100%;font-size:12px}.routine-table th,.routine-table td{border:1px solid var(--line);padding:7px;text-align:left;vertical-align:top}.routine-table th{background:var(--panel2);color:var(--muted);position:sticky;top:0}.routine-table td{height:48px;min-width:100px;background:#111923}.routine-table td.has-block{background:color-mix(in srgb,var(--block-color) 22%,#111923);border-color:color-mix(in srgb,var(--block-color) 45%,var(--line))}.routine-block{border-left:3px solid var(--block-color);padding:3px 5px;min-height:30px}.routine-block strong{display:block;font-size:11px}.routine-block small{font-size:10px;color:var(--muted)}.theme-swatches{display:flex;gap:9px;flex-wrap:wrap}.theme-swatch{width:34px;height:34px;border-radius:50%;border:2px solid var(--line);cursor:pointer}.theme-swatch.selected{outline:2px solid var(--accent);outline-offset:3px}.achievement{position:relative;min-height:145px;display:flex;flex-direction:column;gap:7px}.achievement.locked{opacity:.48;filter:grayscale(.75)}.achievement-icon{font-size:29px}.achievement-meta{font-size:10px;color:var(--muted);margin-top:auto}.duel-score{font-size:34px;font-weight:800;letter-spacing:-1px}.duel-history{display:grid;gap:8px}.duel-entry{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:var(--panel2)}
+:root[data-theme="midnight"]{--bg:#080d18;--panel:#111a2a;--panel2:#19253a;--line:#2a3b58;--accent:#83b8ff;--accent2:#548ee0}
+:root[data-theme="forest"]{--bg:#0c1512;--panel:#14221b;--panel2:#1d3026;--line:#2c4939;--accent:#91d6a9;--accent2:#58aa78}
+:root[data-theme="rose"]{--bg:#1a1118;--panel:#251823;--panel2:#342131;--line:#4a3044;--accent:#efa6cb;--accent2:#c875a3}
+:root[data-theme="light"]{--bg:#eef1f6;--panel:#ffffff;--panel2:#e6eaf1;--line:#d2d8e3;--text:#202735;--muted:#687386;--accent:#7862c9;--accent2:#624ab6}
+:root[data-theme="light"] body{background:var(--bg)}:root[data-theme="light"] .sidebar{background:#f7f8fb}:root[data-theme="light"] input,:root[data-theme="light"] select,:root[data-theme="light"] textarea{background:#fff;color:var(--text)}:root[data-theme="light"] .card{background:var(--panel)}:root[data-theme="light"] .routine-table td{background:#f7f8fb}
+
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:flex;flex-direction:column;overflow-y:auto}.side-bottom{position:static;margin-top:25px}.sidebar{position:fixed;z-index:5;left:-260px;width:245px;transition:.2s;box-shadow:10px 0 30px #0005}.sidebar.open{left:0}.mobile-menu{display:inline-flex}.stats{grid-template-columns:repeat(2,1fr)}.two{grid-template-columns:1fr}.three{grid-template-columns:1fr 1fr}.side-bottom{position:static;margin-top:25px}}
+@media(max-width:560px){main{padding:20px 14px 40px}.top{align-items:flex-start}.top-actions{flex-wrap:wrap;justify-content:flex-end}.pill{display:none}.stats{gap:9px}.card{padding:15px}.stat-value{font-size:23px}.three,.form-grid{grid-template-columns:1fr}.calendar-grid{gap:3px}.day{min-height:65px;padding:5px;font-size:10px}}
+
+/* LifeOS 3.0 — RPG profiles */
+.profile-hero{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.character-card{position:relative;overflow:hidden;border-radius:18px;padding:22px;border:1px solid var(--line);background:radial-gradient(circle at 15% 0%,#343078 0,transparent 48%),linear-gradient(145deg,#171b38,#111827)}
+.character-card.ideal{background:radial-gradient(circle at 85% 0%,#653344 0,transparent 48%),linear-gradient(145deg,#2b1724,#17131d)}
+.avatar-frame{width:92px;height:92px;border-radius:22px;border:2px solid #ffffff35;background:#ffffff12;display:grid;place-items:center;font-size:42px;overflow:hidden;flex-shrink:0}
+.avatar-frame img{width:100%;height:100%;object-fit:cover}
+.character-name{font-size:25px;font-weight:850;letter-spacing:-.8px;margin:12px 0 2px}
+.character-title{font-size:11px;letter-spacing:1.4px;text-transform:uppercase;color:#c4c7e9}
+.character-level{font-size:13px;color:#d9d7ff;margin-top:13px}
+.rpg-stat{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid var(--line);font-size:12px}
+.rpg-stat:last-child{border:0}
+.duel-banner{display:grid;grid-template-columns:1fr auto 1fr;gap:16px;align-items:center;padding:20px;border-radius:20px;background:radial-gradient(circle at 15% 20%,#292b83 0,transparent 40%),radial-gradient(circle at 85% 80%,#592638 0,transparent 42%),#101323;border:1px solid #35375b}
+.duel-side{text-align:center;min-width:0}.duel-side .avatar-frame{margin:auto;width:76px;height:76px;border-radius:50%}.duel-side strong{display:block;font-size:19px;margin-top:8px}.duel-side small{font-size:10px;letter-spacing:1.2px;color:#b7b8d3;text-transform:uppercase}.duel-vs{border:1px solid #ffffff2b;background:#ffffff12;border-radius:50%;width:42px;height:42px;display:grid;place-items:center;font-size:12px;font-weight:800;color:#d9d8ff}
+.duel-meter{height:10px;background:#56323e;border-radius:99px;overflow:hidden;display:flex;margin-top:17px}.duel-meter span{height:100%;background:linear-gradient(90deg,#363bff,#8f9bff)}.duel-summary{font-size:12px;color:#c7c8df;text-align:center;margin-top:10px}
+.profile-edit-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.avatar-preview{width:88px;height:88px;border-radius:18px;background:var(--panel2);border:1px solid var(--line);display:grid;place-items:center;font-size:38px;overflow:hidden}
+.avatar-preview img{width:100%;height:100%;object-fit:cover}
+@media(max-width:700px){.profile-hero,.profile-edit-grid{grid-template-columns:1fr}.duel-banner{gap:8px;padding:13px}.duel-side strong{font-size:15px}.duel-side .avatar-frame{width:60px;height:60px}}
+
+</style>
+
+<link rel="manifest" href="./manifest.webmanifest">
+<meta name="theme-color" content="#0d1117">
+<link rel="icon" href="./icon.svg" type="image/svg+xml">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./config.js"></script>
+<style>
+#authGate{position:fixed;inset:0;z-index:99999;background:#0d1117;display:grid;place-items:center;padding:20px}
+.auth-card{width:min(420px,100%);background:#151b24;border:1px solid #293342;border-radius:20px;padding:26px}
+.auth-card h1{margin:0 0 6px}.auth-card p{color:#94a0b2;font-size:13px}
+.auth-card .field{margin:14px 0}.auth-status{font-size:12px;color:#e8c77a;min-height:20px}
+.sync-pill{display:inline-flex;align-items:center;gap:7px}
+.sync-dot{width:8px;height:8px;border-radius:50%;background:#e8c77a;display:inline-block}
+.sync-dot.online{background:#7bd6ad}.sync-dot.offline{background:#f18e98}
+@media(max-width:760px){.app{grid-template-columns:1fr}.sidebar{position:fixed;z-index:1000;left:-270px;width:250px;transition:left .2s}.sidebar.open{left:0}main{padding:20px 14px 45px}}
+</style>
+</head>
+<body>
+<div id="authGate">
+ <div class="auth-card">
+  <div style="font-size:25px;font-weight:850;margin-bottom:15px">Life<span style="color:#b9a7f5">OS</span> <small style="font-size:11px;color:#94a0b2">4.0</small></div>
+  <h1 id="authTitle">Entre no seu LifeOS</h1>
+  <p>Use sua conta privada para acessar seus dados em todos os dispositivos.</p>
+  <div class="field"><label>E-mail</label><input id="authEmail" type="email" autocomplete="email" placeholder="voce@email.com"></div>
+  <div class="field"><label>Senha</label><input id="authPassword" type="password" autocomplete="current-password" placeholder="Mínimo de 8 caracteres"></div>
+  <div class="row" style="margin-top:16px">
+   <button class="btn" id="authLogin">Entrar</button>
+   <button class="btn secondary" id="authSignup">Criar conta</button>
+  </div>
+  <div class="auth-status" id="authStatus"></div>
+  <p style="font-size:11px">Seus dados são privados. A primeira entrada migra os dados locais deste navegador para sua conta, caso ela ainda não tenha dados na nuvem.</p>
+ </div>
+</div>
+<div id="syncStatus" style="position:fixed;right:14px;bottom:12px;z-index:5000;background:#151b24;border:1px solid #293342;border-radius:99px;padding:7px 11px;font-size:11px;color:#94a0b2;display:none"><span class="sync-dot"></span> <span id="syncLabel">Conectando</span></div>
+
+<div class="app" id="lifeApp" style="visibility:hidden">
+<aside class="sidebar" id="sidebar">
+  <div class="brand">Life<span>OS</span><span style="font-size:10px;color:var(--muted);margin-left:8px">3.1</span><div style="font-size:10px;color:var(--muted);font-weight:500;letter-spacing:1.7px;margin-top:2px">PERSONAL OPERATING SYSTEM</div></div>
+  <div class="eyebrow">Workspace</div>
+  <nav class="nav">
+    <button class="active" data-view="home"><span class="ico">⌂</span> Visão geral</button>
+    <button data-view="profile"><span class="ico">♙</span> Meu personagem</button>
+    <button data-view="quests"><span class="ico">⚑</span> Missões</button>
+    <button data-view="projects"><span class="ico">◈</span> Projetos</button>
+    <button data-view="habits"><span class="ico">↗</span> Hábitos</button>
+    <button data-view="routine"><span class="ico">▦</span> Rotina semanal</button>
+    <button data-view="duel"><span class="ico">⚔</span> Duelo diário</button>
+    <button data-view="calendar"><span class="ico">▦</span> Calendário</button>
+    <button data-view="finance"><span class="ico">◉</span> Finanças</button>
+    <button data-view="progress"><span class="ico">✧</span> Progressão</button>
+    <button data-view="achievements"><span class="ico">🏆</span> Conquistas</button>
+  </nav>
+  <div class="eyebrow">Sistema</div>
+  <nav class="nav">
+    <button data-view="settings"><span class="ico">⚙</span> Configurações</button>
+  </nav>
+  <div class="side-bottom"><div class="season-mini"><strong id="seasonName">Temporada 01</strong><span id="seasonDates">Seu próximo capítulo começa agora.</span></div></div>
+</aside>
+<main>
+<header class="top">
+ <div class="greeting"><div class="row"><button class="btn secondary mobile-menu" onclick="document.getElementById('sidebar').classList.toggle('open')">☰</button><span class="eyebrow" style="padding:0">SEU PAINEL PESSOAL</span></div><h1 id="greeting">Bom dia.</h1><p>Pequenos avanços. Grandes mudanças.</p></div>
+ <div class="top-actions"><span class="pill" id="todayLabel"></span><button class="btn secondary" onclick="openModal('vacationModal')">☀ Férias</button><button class="btn" onclick="openQuickAdd()">＋ Nova missão</button></div>
+</header>
+<section class="view active" id="view-home">
+ <div class="grid stats">
+  <div class="card"><div class="stat-label">NÍVEL ATUAL</div><div class="stat-value accent" id="statLevel">1</div><div class="stat-sub" id="statLevelSub">Iniciante</div></div>
+  <div class="card"><div class="stat-label">EXPERIÊNCIA TOTAL</div><div class="stat-value" id="statXP">0 XP</div><div class="stat-sub">XP acumulado</div></div>
+  <div class="card"><div class="stat-label">MISSÕES CONCLUÍDAS</div><div class="stat-value green" id="statDone">0</div><div class="stat-sub">Desde o início</div></div>
+  <div class="card"><div class="stat-label">SALDO REGISTRADO</div><div class="stat-value" id="statBalance">R$ 0,00</div><div class="stat-sub">Entradas menos saídas</div></div>
+ </div>
+ <div class="grid two">
+  <div class="card"><div class="level-row"><div class="level-badge"><div class="level-icon">✦</div><div><h3 id="levelTitle">Nível 1 · Iniciante</h3><small id="xpNext">0 / 100 XP para o próximo nível</small></div></div><strong class="accent" id="levelPercent">0%</strong></div><div class="progress"><i id="levelBar" style="width:0%"></i></div><p class="muted" style="font-size:11px;margin:12px 0 0">Seu nível representa consistência acumulada, não seu valor como pessoa.</p></div>
+  <div class="card"><div class="section-head" style="margin:0 0 12px"><div><h2>Temporada atual</h2><p>Seu ciclo de evolução</p></div><span class="tag">ATIVA</span></div><h3 id="seasonTitle" style="margin:0 0 5px">Temporada 01 · Fundação</h3><p class="muted" id="seasonProgressText" style="font-size:12px;margin:0 0 12px">Organize sua base e comece a avançar.</p><div class="progress"><i id="seasonBar" style="width:0%"></i></div></div>
+ </div>
+ <div class="section-head"><div><h2>Missões de hoje</h2><p>Escolha o que realmente importa.</p></div><button class="btn secondary" onclick="showView('quests')">Ver todas</button></div>
+ <div class="grid two"><div class="card" id="todayQuests"><div class="empty">Nenhuma missão ainda. Crie a primeira.</div></div>
+ <div class="card"><div class="section-head" style="margin:0 0 10px"><div><h2>Hábitos de hoje</h2><p>Consistência acima de intensidade.</p></div><button class="btn secondary" onclick="showView('habits')">Gerenciar</button></div><div id="todayHabits"><div class="empty">Adicione hábitos para acompanhar.</div></div></div></div>
+ <div class="section-head"><div><h2>Foco em andamento</h2><p>Projetos que merecem sua atenção.</p></div><button class="btn secondary" onclick="showView('projects')">Projetos</button></div><div class="card" id="homeProjects"><div class="empty">Nenhum projeto cadastrado.</div></div>
+</section>
+<section class="view" id="view-profile">
+ <div class="section-head" style="margin-top:0"><div><h2>Meu personagem</h2><p>Sua ficha de jogador no universo LifeOS.</p></div><span class="tag">FICHA RPG</span></div>
+ <div class="profile-hero">
+  <div class="character-card">
+   <div class="row" style="justify-content:space-between"><span class="tag">JOGADOR PRINCIPAL</span><span class="tag" id="profileLevelTag">NÍVEL 1</span></div>
+   <div class="row" style="align-items:center;margin-top:20px;gap:16px"><div class="avatar-frame" id="profileAvatarDisplay">🧙</div><div><div class="character-name" id="profileNameDisplay">Aventureiro</div><div class="character-title" id="profileTitleDisplay">Classe não definida</div></div></div>
+   <p id="profileBioDisplay" style="color:#d1d2e8;font-size:13px;margin:17px 0">Escreva sua história. Sua jornada começa com o próximo passo.</p>
+   <div class="character-level" id="profileXPDisplay">0 XP · 0 para o próximo nível</div><div class="progress" style="margin-top:8px"><i id="profileXPBar" style="width:0%"></i></div>
+  </div>
+  <div class="character-card ideal">
+   <div class="row" style="justify-content:space-between"><span class="tag">ALTER EGO</span><span class="tag">VERSÃO IDEAL</span></div>
+   <div class="row" style="align-items:center;margin-top:20px;gap:16px"><div class="avatar-frame" id="idealAvatarDisplay">👑</div><div><div class="character-name" id="idealNameDisplay">Alter Ego</div><div class="character-title" id="idealTitleDisplay">Sua versão ideal</div></div></div>
+   <p id="idealBioDisplay" style="color:#f0d9e0;font-size:13px;margin:17px 0">A versão que você está construindo, um dia de cada vez.</p>
+   <div class="character-level">Identidade independente · disputa manual</div>
+  </div>
+ </div>
+ <div class="section-head"><div><h2>Ficha do personagem</h2><p>Edite sua identidade e a identidade do seu Alter Ego.</p></div></div>
+ <div class="profile-edit-grid">
+  <div class="card">
+   <h3 style="margin-top:0">Seu personagem</h3>
+   <div class="field"><label>Nome de exibição</label><input id="profileNameInput" maxlength="40" placeholder="Ex.: Otávio"></div>
+   <div class="field"><label>Título / classe</label><input id="profileTitleInput" maxlength="50" placeholder="Ex.: Estrategista"></div>
+   <div class="field"><label>Biografia</label><textarea id="profileBioInput" maxlength="500" placeholder="Como você descreveria seu personagem?"></textarea></div>
+   <div class="field"><label>Objetivo principal</label><input id="profileGoalInput" maxlength="120" placeholder="Ex.: Construir uma vida financeira sólida"></div>
+   <div class="field"><label>Especialização</label><input id="profileSpecInput" maxlength="80" placeholder="Ex.: Estratégia e execução"></div>
+   <div class="field"><label>Título em destaque</label><input id="profileBadgeInput" maxlength="50" placeholder="Ex.: Fundador da própria jornada"></div>
+   <div class="field"><label>Avatar (imagem do dispositivo)</label><input id="profileAvatarInput" type="file" accept="image/*"></div>
+   <div class="row"><div class="avatar-preview" id="profileAvatarPreview">🧙</div><button class="btn secondary" onclick="clearAvatar('player')">Remover avatar</button></div>
+  </div>
+  <div class="card">
+   <h3 style="margin-top:0">Seu Alter Ego</h3>
+   <div class="field"><label>Nome do Alter Ego</label><input id="idealNameInput" maxlength="40" placeholder="Ex.: Alfred"></div>
+   <div class="field"><label>Título / classe</label><input id="idealTitleInput" maxlength="50" placeholder="Ex.: O Estrategista"></div>
+   <div class="field"><label>Descrição da versão ideal</label><textarea id="idealBioInput" maxlength="500" placeholder="Quais princípios e características definem essa versão?"></textarea></div>
+   <div class="field"><label>Princípios e valores</label><textarea id="idealValuesInput" maxlength="300" placeholder="Ex.: Consistência, coragem, responsabilidade"></textarea></div>
+   <div class="field"><label>Especialidade</label><input id="idealSpecInput" maxlength="80" placeholder="Ex.: Disciplina e foco"></div>
+   <div class="field"><label>Avatar (imagem do dispositivo)</label><input id="idealAvatarInput" type="file" accept="image/*"></div>
+   <div class="row"><div class="avatar-preview" id="idealAvatarPreview">👑</div><button class="btn secondary" onclick="clearAvatar('ideal')">Remover avatar</button></div>
+  </div>
+ </div>
+ <div class="row" style="justify-content:flex-end;margin-top:15px"><button class="btn" onclick="saveProfiles()">Salvar fichas</button></div>
+ <div class="section-head"><div><h2>Atributos do personagem</h2><p>Seus atributos evoluem com as atividades registradas.</p></div></div>
+ <div class="card" id="profileAttributes"></div>
+ <div class="card" style="margin-top:12px"><h3 style="margin-top:0">Editar atributos</h3><p class="muted" style="font-size:12px">Defina manualmente os valores dos atributos do seu personagem (0 a 999).</p><div class="form-grid" id="attributeEditor"></div><div class="form-actions"><button class="btn" onclick="saveProfileAttributes()">Salvar atributos</button></div></div>
+</section>
+
+<section class="view" id="view-quests">
+ <div class="section-head" style="margin-top:0"><div><h2>Central de missões</h2><p>Transforme objetivos em ações executáveis.</p></div><button class="btn" onclick="openModal('questModal')">＋ Criar missão</button></div>
+ <div class="grid stats"><div class="card"><div class="stat-label">ATIVAS</div><div class="stat-value" id="qActive">0</div></div><div class="card"><div class="stat-label">CONCLUÍDAS</div><div class="stat-value green" id="qDone">0</div></div><div class="card"><div class="stat-label">XP DISPONÍVEL NAS MISSÕES</div><div class="stat-value gold" id="qPotential">0</div></div><div class="card"><div class="stat-label">TAXA DE CONCLUSÃO</div><div class="stat-value" id="qRate">0%</div></div></div>
+ <div class="card"><div class="section-head" style="margin:0 0 8px"><h2>Suas missões</h2><select id="questFilter" onchange="renderQuests()" style="width:auto"><option value="all">Todas</option><option value="active">Ativas</option><option value="done">Concluídas</option></select></div><div class="item-list" id="questList"></div></div>
+</section>
+<section class="view" id="view-projects">
+ <div class="section-head" style="margin-top:0"><div><h2>Projetos de longo prazo</h2><p>Grandes resultados são construídos por etapas.</p></div><button class="btn" onclick="openModal('projectModal')">＋ Novo projeto</button></div>
+ <div class="grid stats"><div class="card"><div class="stat-label">PROJETOS ATIVOS</div><div class="stat-value" id="pActive">0</div></div><div class="card"><div class="stat-label">CONCLUÍDOS</div><div class="stat-value green" id="pDone">0</div></div><div class="card"><div class="stat-label">ETAPAS CONCLUÍDAS</div><div class="stat-value" id="pSteps">0</div></div><div class="card"><div class="stat-label">PROGRESSO MÉDIO</div><div class="stat-value" id="pAvg">0%</div></div></div>
+ <div class="item-list" id="projectList"></div>
+</section>
+<section class="view" id="view-habits">
+ <div class="section-head" style="margin-top:0"><div><h2>Hábitos e rotina</h2><p>Construa um padrão que você consiga sustentar.</p></div><button class="btn" onclick="openModal('habitModal')">＋ Novo hábito</button></div>
+ <div class="grid two"><div class="card"><h2 style="font-size:16px;margin-top:0">Check-in de hoje</h2><div id="habitCheckins"></div></div><div class="card"><h2 style="font-size:16px;margin-top:0">Seus hábitos</h2><div class="item-list" id="habitList"></div></div></div>
+</section>
+<section class="view" id="view-routine">
+ <div class="section-head" style="margin-top:0"><div><h2>Rotina semanal</h2><p>Organize seu tempo em blocos. Os horários são seus, não uma prisão.</p></div><button class="btn" onclick="openRoutineModal()">＋ Novo bloco</button></div>
+ <div class="card"><div class="row" style="justify-content:space-between;margin-bottom:12px"><div><strong>Grade semanal</strong><small class="muted" style="display:block">Blocos de 1 a 4 horas · Segunda a domingo</small></div><button class="btn secondary" onclick="clearRoutine()">Limpar rotina</button></div><div class="routine-wrap"><table class="routine-table" id="routineTable"></table></div></div>
+ <div class="section-head"><div><h2>Seus blocos</h2><p>Edite ou remova qualquer compromisso da rotina.</p></div></div><div class="item-list" id="routineList"></div>
+</section>
+<section class="view" id="view-duel">
+ <div class="section-head" style="margin-top:0"><div><h2>Alter Egos</h2><p>Quem esteve no comando? A decisão é sua.</p></div><span class="tag">DUELO DIÁRIO</span></div>
+ <div class="grid two">
+  <div class="card">
+   <div class="stat-label">QUEM ESTÁ DOMINANDO</div>
+   <div class="duel-banner" style="margin-top:12px">
+    <div class="duel-side"><div class="avatar-frame" id="duelPlayerAvatar">🧙</div><strong id="duelPlayerName">Jogador</strong><small id="duelPlayerTitle">PERSONAGEM PRINCIPAL</small><div class="duel-score accent" id="duelPlayerPct">—</div></div>
+    <div class="duel-vs">VS</div>
+    <div class="duel-side"><div class="avatar-frame" id="duelIdealAvatar">👑</div><strong id="duelIdealName">Alter Ego</strong><small id="duelIdealTitle">VERSÃO IDEAL</small><div class="duel-score" style="color:#ff9d9d" id="duelIdealPct">—</div></div>
+   </div>
+   <div class="duel-meter"><span id="duelPlayerMeter" style="width:50%"></span></div>
+   <div class="duel-summary" id="duelRatio">Seu histórico começa com o primeiro registro.</div>
+   <div class="row" style="justify-content:space-around;margin-top:18px">
+    <div style="text-align:center"><div class="duel-score green" id="duelWinsYou">0</div><small class="muted">DIAS VOCÊ</small></div>
+    <div style="text-align:center"><div class="duel-score" style="color:#ff9d9d" id="duelWinsIdeal">0</div><small class="muted">DIAS ALTER EGO</small></div>
+    <div style="text-align:center"><div class="duel-score" id="duelDraws">0</div><small class="muted">EMPATES</small></div>
+   </div>
+  </div>
+  <div class="card">
+   <div class="stat-label">REFLEXÃO DO DIA</div><h2 style="font-size:18px;margin:8px 0">Quem dominou hoje?</h2>
+   <div class="field"><label>Escolha o vencedor</label><select id="duelWinner"><option value="you">Eu — personagem principal</option><option value="ideal">Meu Alter Ego — versão ideal</option><option value="draw">Empate</option></select></div>
+   <div class="field"><label>Por quê? O que aconteceu hoje?</label><textarea id="duelNote" placeholder="Registre uma reflexão honesta..."></textarea></div>
+   <button class="btn" onclick="saveDuel()">⚔ Registrar reflexão · +10 XP</button>
+   <p class="muted" id="duelTodayStatus" style="font-size:11px;margin-bottom:0"></p>
+   <p class="muted" style="font-size:11px">O resultado é manual. Não existe pontuação automática nem punição por um dia difícil.</p>
+  </div>
+ </div>
+ <div class="section-head"><div><h2>Histórico de confrontos</h2><p>Uma avaliação diária, não um julgamento sobre seu valor.</p></div><span class="tag" id="duelTotal">0 registros</span></div>
+ <div class="duel-history" id="duelHistory"></div>
+</section>
+<section class="view" id="view-achievements">
+ <div class="section-head" style="margin-top:0"><div><h2>Conquistas</h2><p>Marcos desbloqueados durante sua jornada. Algumas são secretas.</p></div><span class="tag" id="achievementCount">0 / 0 desbloqueadas</span></div><div class="grid three" id="achievementGallery"></div>
+</section>
+<section class="view" id="view-calendar">
+ <div class="section-head" style="margin-top:0"><div><h2>Calendário e agenda</h2><p>Visualize seus compromissos e missões com data.</p></div><button class="btn" onclick="openModal('eventModal')">＋ Novo evento</button></div>
+ <div class="card"><div class="row" style="justify-content:space-between;margin-bottom:14px"><button class="btn secondary" onclick="changeMonth(-1)">← Anterior</button><h2 id="monthLabel" style="font-size:16px;margin:0"></h2><button class="btn secondary" onclick="changeMonth(1)">Próximo →</button></div><div class="calendar-grid" id="calendarGrid"></div></div>
+ <div class="section-head"><div><h2>Agenda</h2><p>Próximos compromissos</p></div></div><div class="item-list" id="eventList"></div>
+</section>
+<section class="view" id="view-finance">
+ <div class="section-head" style="margin-top:0"><div><h2>Finanças pessoais</h2><p>Registre movimentações e acompanhe seu dinheiro.</p></div><button class="btn" onclick="openModal('financeModal')">＋ Lançamento</button></div>
+ <div class="grid stats"><div class="card"><div class="stat-label">SALDO</div><div class="stat-value" id="fBalance">R$ 0,00</div></div><div class="card"><div class="stat-label">ENTRADAS</div><div class="stat-value green" id="fIncome">R$ 0,00</div></div><div class="card"><div class="stat-label">SAÍDAS</div><div class="stat-value red" id="fExpense">R$ 0,00</div></div><div class="card"><div class="stat-label">LANÇAMENTOS</div><div class="stat-value" id="fCount">0</div></div></div>
+ <div class="grid two"><div class="card"><h2 style="font-size:16px;margin:0">Movimentações</h2><div class="item-list" id="financeList" style="margin-top:12px"></div></div><div class="card"><h2 style="font-size:16px;margin:0">Resumo</h2><p class="muted" style="font-size:12px">Entradas e saídas registradas nesta versão.</p><div id="financeSummary"></div><p class="muted" style="font-size:11px;margin-top:18px">Dica: registre os valores manualmente. O LifeOS não acessa sua conta bancária.</p></div></div>
+</section>
+<section class="view" id="view-progress">
+ <div class="section-head" style="margin-top:0"><div><h2>Sua progressão</h2><p>Uma visão honesta da sua evolução.</p></div></div>
+ <div class="grid two"><div class="card"><h2 style="font-size:16px;margin-top:0">Atributos</h2><p class="muted" style="font-size:12px">Ganhe XP ao concluir missões associadas a cada área.</p><div id="attributes"></div></div><div class="card"><h2 style="font-size:16px;margin-top:0">Estatísticas</h2><div class="grid three" style="gap:8px"><div><div class="stat-label">MISSÕES</div><strong id="sQuests">0</strong></div><div><div class="stat-label">HÁBITOS</div><strong id="sHabits">0</strong></div><div><div class="stat-label">PROJETOS</div><strong id="sProjects">0</strong></div></div><h3 style="font-size:13px;margin:22px 0 0">XP por atributo</h3><div class="bar-chart" id="xpChart"></div></div></div>
+ <div class="section-head"><div><h2>Conquistas</h2><p>Marcos desbloqueados ao longo da jornada.</p></div></div><div class="grid three" id="achievements"></div>
+</section>
+<section class="view" id="view-settings">
+ <div class="section-head" style="margin-top:0"><div><h2>Configurações</h2><p>Personalize seu sistema.</p></div></div>
+ <div class="grid two"><div class="card"><h2 style="font-size:16px;margin-top:0">Aparência</h2><div class="field"><label>Tema</label><select id="themeSelect" onchange="setTheme(this.value)"><option value="dark">Dark original</option><option value="midnight">Midnight blue</option><option value="forest">Forest</option><option value="rose">Rose</option><option value="light">Light</option></select></div><div class="field"><label>Cor de destaque</label><input type="color" id="accentPicker" value="#b9a7f5" onchange="setAccent(this.value)" style="height:44px;padding:4px"></div><p class="muted" style="font-size:11px">A aparência fica salva neste navegador.</p></div><div class="card"><h2 style="font-size:16px;margin-top:0">Perfil</h2><div class="field"><label>Como devemos te chamar?</label><input id="userName" placeholder="Seu nome"></div><div class="field"><label>Nome da temporada atual</label><input id="seasonInput" placeholder="Ex.: Fundação"></div><button class="btn" onclick="saveSettings()">Salvar alterações</button></div><div class="card"><h2 style="font-size:16px;margin-top:0">Dados e privacidade</h2><p class="muted" style="font-size:12px">Seus dados ficam salvos neste navegador, neste dispositivo, usando armazenamento local. Não há conta nem sincronização na nuvem nesta primeira versão.</p><div class="row"><button class="btn secondary" onclick="exportData()">Exportar backup</button><label class="btn secondary" for="importFile">Importar backup</label><input id="importFile" type="file" accept="application/json" style="display:none" onchange="importData(event)"></div><button class="btn danger" style="margin-top:16px" onclick="resetData()">Apagar todos os dados</button></div></div>
+ <div class="card" style="margin-top:15px"><h2 style="font-size:16px;margin-top:0">Regras da gamificação</h2><p class="muted" style="font-size:12px">Equilibrado é o padrão. XP recompensa ações concluídas, não horas de sofrimento. Você pode ajustar os valores na próxima versão.</p><div class="row"><span class="tag">Missão simples · 10 XP</span><span class="tag">Normal · 25 XP</span><span class="tag">Desafiadora · 50 XP</span><span class="tag">Projeto concluído · 100 XP</span></div></div>
+</section>
+</main></div>
+
+<!-- Modals -->
+<div class="modal-back" id="questModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2>Nova missão</h2><button class="icon-btn" onclick="closeModal('questModal')">✕</button></div><div class="field"><label>Nome da missão</label><input id="qTitle" placeholder="Ex.: Estudar matemática por 40 minutos"></div><div class="form-grid"><div class="field"><label>Categoria / atributo</label><select id="qAttr"><option>Inteligência</option><option>Disciplina</option><option>Finanças</option><option>Criatividade</option><option>Estratégia</option><option>Comunicação</option><option>Geral</option></select></div><div class="field"><label>Dificuldade</label><select id="qDifficulty"><option value="10">Simples · 10 XP</option><option value="25" selected>Normal · 25 XP</option><option value="50">Desafiadora · 50 XP</option></select></div><div class="field"><label>Prazo</label><input id="qDate" type="date"></div><div class="field"><label>Tipo</label><select id="qType"><option>Diária</option><option>Semanal</option><option>Principal</option><option>Secundária</option></select></div></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('questModal')">Cancelar</button><button class="btn" onclick="addQuest()">Criar missão</button></div></div></div>
+<div class="modal-back" id="projectModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2>Novo projeto</h2><button class="icon-btn" onclick="closeModal('projectModal')">✕</button></div><div class="field"><label>Nome do projeto</label><input id="pTitle" placeholder="Ex.: Construir meu portfólio"></div><div class="field"><label>Descrição</label><textarea id="pDesc" placeholder="O que significa concluir este projeto?"></textarea></div><div class="field"><label>Data-alvo (opcional)</label><input id="pDate" type="date"></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('projectModal')">Cancelar</button><button class="btn" onclick="addProject()">Criar projeto</button></div></div></div>
+<div class="modal-back" id="habitModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2>Novo hábito</h2><button class="icon-btn" onclick="closeModal('habitModal')">✕</button></div><div class="field"><label>Nome do hábito</label><input id="hTitle" placeholder="Ex.: Ler 10 páginas"></div><div class="field"><label>Frequência</label><select id="hFreq"><option>Todos os dias</option><option>Dias úteis</option><option>3 vezes por semana</option><option>Semanal</option></select></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('habitModal')">Cancelar</button><button class="btn" onclick="addHabit()">Adicionar hábito</button></div></div></div>
+<div class="modal-back" id="eventModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2>Novo evento</h2><button class="icon-btn" onclick="closeModal('eventModal')">✕</button></div><div class="field"><label>Título</label><input id="eTitle" placeholder="Ex.: Consulta, prova, compromisso"></div><div class="form-grid"><div class="field"><label>Data</label><input id="eDate" type="date"></div><div class="field"><label>Horário (opcional)</label><input id="eTime" type="time"></div></div><div class="field"><label>Observação</label><input id="eNote" placeholder="Local, preparação..."></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('eventModal')">Cancelar</button><button class="btn" onclick="addEvent()">Salvar evento</button></div></div></div>
+<div class="modal-back" id="financeModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2>Novo lançamento</h2><button class="icon-btn" onclick="closeModal('financeModal')">✕</button></div><div class="form-grid"><div class="field"><label>Tipo</label><select id="fType"><option value="income">Entrada</option><option value="expense">Saída</option></select></div><div class="field"><label>Valor (R$)</label><input id="fAmount" type="number" min="0.01" step="0.01" placeholder="0,00"></div></div><div class="field"><label>Descrição</label><input id="fDesc" placeholder="Ex.: Mesada, lanche, economia"></div><div class="field"><label>Data</label><input id="fDate" type="date"></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('financeModal')">Cancelar</button><button class="btn" onclick="addFinance()">Salvar lançamento</button></div></div></div>
+<div class="modal-back" id="vacationModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2>Modo férias</h2><button class="icon-btn" onclick="closeModal('vacationModal')">✕</button></div><p>Você está entrando em período de férias? Podemos manter o ritmo equilibrado ou ativar uma temporada mais intensa.</p><div class="field"><label>Escolha o ritmo</label><select id="vacationMode"><option value="balanced">Equilibrado — padrão</option><option value="hardcore">Hardcore — desafios extras e metas mais ambiciosas</option></select></div><div class="field"><label><input id="vacationActive" type="checkbox" style="width:auto;margin-right:7px">Estou de férias</label></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('vacationModal')">Cancelar</button><button class="btn" onclick="saveVacation()">Aplicar</button></div></div></div>
+<div class="modal-back" id="routineModal"><div class="modal"><div class="row" style="justify-content:space-between"><h2 id="routineModalTitle">Novo bloco</h2><button class="icon-btn" onclick="closeModal('routineModal')">✕</button></div><input id="rId" type="hidden"><div class="field"><label>Atividade</label><input id="rTitle" placeholder="Ex.: Estudar, escola, leitura"></div><div class="form-grid"><div class="field"><label>Dia</label><select id="rDay"><option value="0">Segunda</option><option value="1">Terça</option><option value="2">Quarta</option><option value="3">Quinta</option><option value="4">Sexta</option><option value="5">Sábado</option><option value="6">Domingo</option></select></div><div class="field"><label>Início</label><select id="rStart"></select></div><div class="field"><label>Duração</label><select id="rDuration"><option value="1">1 hora</option><option value="2">2 horas</option><option value="3">3 horas</option><option value="4">4 horas</option></select></div><div class="field"><label>Cor</label><input id="rColor" type="color" value="#8e7be0" style="height:42px;padding:4px"></div></div><div class="form-actions"><button class="btn secondary" onclick="closeModal('routineModal')">Cancelar</button><button class="btn" onclick="saveRoutineBlock()">Salvar bloco</button></div></div></div>
+<div class="toast" id="toast"></div>
+<script>
+const KEY='lifeos_v1_data';
+const today=()=>{let d=new Date();return `${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,'0')}-${String(d.getDate()).padStart(2,'0')}`};
+const fresh=()=>({name:'',season:'Fundação',seasonStart:today(),xp:0,done:0,quests:[],projects:[],habits:[],events:[],finance:[],attr:{'Inteligência':0,'Disciplina':0,'Finanças':0,'Criatividade':0,'Estratégia':0,'Comunicação':0,'Geral':0},habitLog:{},vacation:false,mode:'balanced',routine:[],duel:{},theme:'dark',accent:'#b9a7f5',achievementUnlocks:{},profile:{name:'',title:'Aventureiro',bio:'',avatar:'',goal:'',specialization:'',badge:''},alterEgo:{name:'Alter Ego',title:'Versão ideal',bio:'Uma versão ideal construída por escolhas e consistência.',avatar:'',values:'',specialization:''}});
+let data;try{let old=JSON.parse(localStorage.getItem(KEY));data={...fresh(),...(old||{})};data.routine=data.routine||[];data.duel=data.duel||{};data.achievementUnlocks=data.achievementUnlocks||{};data.attr={...fresh().attr,...(data.attr||{})};data.profile={...fresh().profile,...(data.profile||{})};data.alterEgo={...fresh().alterEgo,...(data.alterEgo||{})}}catch(e){data=fresh()}
+let calDate=new Date();let toastTimer;
+function save(){
+ localStorage.setItem(KEY,JSON.stringify(data));
+ render();
+ if(window.LifeCloud?.user) window.LifeCloud.push(data);
+}
+function money(n){return n.toLocaleString('pt-BR',{style:'currency',currency:'BRL'})}
+function esc(s){return String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}
+function notify(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),2400)}
+function openModal(id){document.getElementById(id).classList.add('show')}
+function closeModal(id){document.getElementById(id).classList.remove('show')}
+function showView(v){document.querySelectorAll('.view').forEach(x=>x.classList.remove('active'));document.getElementById('view-'+v).classList.add('active');document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.view===v));document.getElementById('sidebar').classList.remove('open');render()}
+document.querySelectorAll('.nav button').forEach(b=>b.addEventListener('click',()=>showView(b.dataset.view)));
+function openQuickAdd(){openModal('questModal')}
+function addQuest(){let title=document.getElementById('qTitle').value.trim();if(!title)return notify('Dê um nome à missão.');data.quests.push({id:crypto.randomUUID(),title,attr:document.getElementById('qAttr').value,xp:+document.getElementById('qDifficulty').value,date:document.getElementById('qDate').value||today(),type:document.getElementById('qType').value,done:false,created:today()});document.getElementById('qTitle').value='';closeModal('questModal');save();notify('Missão criada. Bora avançar.')}
+function completeQuest(id){let q=data.quests.find(x=>x.id===id);if(!q||q.done)return;q.done=true;data.xp+=q.xp;data.done++;data.attr[q.attr]=(data.attr[q.attr]||0)+q.xp;save();notify('Missão concluída: +'+q.xp+' XP')}
+function deleteItem(type,id){if(!confirm('Excluir este item?'))return;data[type]=data[type].filter(x=>x.id!==id);save()}
+function renderQuests(){let list=data.quests,filter=document.getElementById('questFilter')?.value||'all';if(filter==='active')list=list.filter(q=>!q.done);if(filter==='done')list=list.filter(q=>q.done);document.getElementById('qActive').textContent=data.quests.filter(q=>!q.done).length;document.getElementById('qDone').textContent=data.quests.filter(q=>q.done).length;document.getElementById('qPotential').textContent=data.quests.filter(q=>!q.done).reduce((a,q)=>a+q.xp,0)+' XP';document.getElementById('qRate').textContent=(data.quests.length?Math.round(data.quests.filter(q=>q.done).length/data.quests.length*100):0)+'%';document.getElementById('questList').innerHTML=list.length?list.map(q=>`<div class="item"><div style="display:flex;gap:10px;align-items:center;min-width:0"><input type="checkbox" ${q.done?'checked':''} ${q.done?'disabled':''} onchange="completeQuest('${q.id}')" style="width:17px"><div><strong style="${q.done?'text-decoration:line-through;color:var(--muted)':''}">${esc(q.title)}</strong><small>${esc(q.type)} · ${esc(q.attr)} · ${q.date||'Sem prazo'}</small></div></div><div class="item-actions"><span class="xp">+${q.xp} XP</span><button class="icon-btn" onclick="deleteItem('quests','${q.id}')">×</button></div></div>`).join(''):'<div class="empty">Nenhuma missão por aqui.</div>'}
+function addProject(){let title=document.getElementById('pTitle').value.trim();if(!title)return notify('Dê um nome ao projeto.');data.projects.push({id:crypto.randomUUID(),title,desc:document.getElementById('pDesc').value,date:document.getElementById('pDate').value,steps:[],done:false});['pTitle','pDesc','pDate'].forEach(id=>document.getElementById(id).value='');closeModal('projectModal');save();notify('Projeto criado.')}
+function addStep(id){let p=data.projects.find(x=>x.id===id);let s=prompt('Qual é a próxima etapa deste projeto?');if(s?.trim()){p.steps.push({id:crypto.randomUUID(),title:s.trim(),done:false});save()}}
+function toggleStep(pid,sid){let p=data.projects.find(x=>x.id===pid),s=p.steps.find(x=>x.id===sid);s.done=!s.done;if(!p.done&&p.steps.length&&p.steps.every(x=>x.done)){p.done=true;data.xp+=100;data.attr['Disciplina']+=100;notify('Projeto concluído! +100 XP')}save()}
+function renderProjects(){let active=data.projects.filter(p=>!p.done).length,done=data.projects.filter(p=>p.done).length,steps=data.projects.flatMap(p=>p.steps),pct=steps.length?Math.round(steps.filter(s=>s.done).length/steps.length*100):0;document.getElementById('pActive').textContent=active;document.getElementById('pDone').textContent=done;document.getElementById('pSteps').textContent=steps.filter(s=>s.done).length;document.getElementById('pAvg').textContent=pct+'%';let html=data.projects.map(p=>{let n=p.steps.length,pc=n?Math.round(p.steps.filter(s=>s.done).length/n*100):0;return `<div class="card"><div class="row" style="justify-content:space-between"><div><strong>${esc(p.title)}</strong><small class="muted" style="display:block">${esc(p.desc||'Sem descrição')} ${p.date?'· Prazo: '+p.date:''}</small></div><div class="row"><span class="tag">${p.done?'CONCLUÍDO':pc+'%'}</span><button class="icon-btn" onclick="addStep('${p.id}')">＋ Etapa</button><button class="icon-btn" onclick="deleteItem('projects','${p.id}')">×</button></div></div><div class="progress" style="margin:13px 0"><i style="width:${pc}%"></i></div>${p.steps.map(s=>`<div class="quest"><input type="checkbox" ${s.done?'checked':''} onchange="toggleStep('${p.id}','${s.id}')"><div class="quest-main"><strong>${esc(s.title)}</strong></div></div>`).join('')}<small class="muted">${n} etapa(s) · ${p.done?'Projeto finalizado':'Adicione etapas para acompanhar o progresso'}</small></div>`}).join('');document.getElementById('projectList').innerHTML=html||'<div class="empty">Nenhum projeto cadastrado.</div>'}
+function addHabit(){let title=document.getElementById('hTitle').value.trim();if(!title)return notify('Dê um nome ao hábito.');data.habits.push({id:crypto.randomUUID(),title,freq:document.getElementById('hFreq').value});document.getElementById('hTitle').value='';closeModal('habitModal');save()}
+function habitDone(id){let key=today();data.habitLog[key]=data.habitLog[key]||[];if(!data.habitLog[key].includes(id)){data.habitLog[key].push(id);data.xp+=5;data.attr['Disciplina']+=5;save();notify('+5 XP por manter o hábito.')} }
+function renderHabits(){let log=data.habitLog[today()]||[];document.getElementById('habitCheckins').innerHTML=data.habits.length?data.habits.map(h=>`<div class="quest"><input type="checkbox" ${log.includes(h.id)?'checked':''} onchange="habitDone('${h.id}')" ${log.includes(h.id)?'disabled':''}><div class="quest-main"><strong>${esc(h.title)}</strong><small>${esc(h.freq)}</small></div>${log.includes(h.id)?'<span class="green">Feito</span>':'<span class="xp">+5 XP</span>'}</div>`).join(''):'<div class="empty">Cadastre seu primeiro hábito.</div>';document.getElementById('habitList').innerHTML=data.habits.length?data.habits.map(h=>`<div class="item"><div><strong>${esc(h.title)}</strong><small>${esc(h.freq)}</small></div><button class="icon-btn" onclick="deleteItem('habits','${h.id}')">×</button></div>`).join(''):'<div class="empty">Nenhum hábito cadastrado.</div>';document.getElementById('todayHabits').innerHTML=data.habits.slice(0,4).map(h=>`<div class="quest"><span>${log.includes(h.id)?'✓':'○'}</span><div class="quest-main"><strong>${esc(h.title)}</strong></div></div>`).join('')||'<div class="empty">Adicione hábitos para acompanhar.</div>'}
+function addEvent(){let title=document.getElementById('eTitle').value.trim(),date=document.getElementById('eDate').value;if(!title||!date)return notify('Preencha título e data.');data.events.push({id:crypto.randomUUID(),title,date,time:document.getElementById('eTime').value,note:document.getElementById('eNote').value});closeModal('eventModal');save();notify('Evento adicionado.')}
+function changeMonth(n){calDate.setMonth(calDate.getMonth()+n);renderCalendar()}
+function renderCalendar(){let y=calDate.getFullYear(),m=calDate.getMonth(),first=new Date(y,m,1),last=new Date(y,m+1,0);document.getElementById('monthLabel').textContent=first.toLocaleDateString('pt-BR',{month:'long',year:'numeric'});let offset=(first.getDay()+6)%7,days=['Seg','Ter','Qua','Qui','Sex','Sáb','Dom'];let html=days.map(d=>`<div class="day-name">${d}</div>`).join('');for(let i=0;i<offset;i++)html+='<div></div>';for(let d=1;d<=last.getDate();d++){let date=`${y}-${String(m+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`,ev=data.events.filter(e=>e.date===date),q=data.quests.filter(q=>q.date===date&&!q.done);html+=`<div class="day ${date===today()?'today':''}"><strong>${d}</strong>${ev.length?`<small>▦ ${ev.length} evento(s)</small>`:''}${q.length?`<small>⚑ ${q.length} missão(ões)</small>`:''}</div>`}document.getElementById('calendarGrid').innerHTML=html;let upcoming=[...data.events].sort((a,b)=>(a.date+a.time).localeCompare(b.date+b.time));document.getElementById('eventList').innerHTML=upcoming.length?upcoming.map(e=>`<div class="item"><div><strong>${esc(e.title)}</strong><small>${e.date} ${e.time||''} ${esc(e.note||'')}</small></div><button class="icon-btn" onclick="deleteItem('events','${e.id}')">×</button></div>`).join(''):'<div class="empty">Nenhum evento cadastrado.</div>'}
+function addFinance(){let amount=Number(document.getElementById('fAmount').value),desc=document.getElementById('fDesc').value.trim();if(!(amount>0)||!desc)return notify('Informe uma descrição e um valor válido.');data.finance.push({id:crypto.randomUUID(),type:document.getElementById('fType').value,amount,desc,date:document.getElementById('fDate').value||today()});closeModal('financeModal');save();notify('Lançamento salvo.')}
+function renderFinance(){let inc=data.finance.filter(x=>x.type==='income').reduce((a,x)=>a+x.amount,0),out=data.finance.filter(x=>x.type==='expense').reduce((a,x)=>a+x.amount,0),bal=inc-out;['fBalance','statBalance'].forEach(id=>document.getElementById(id).textContent=money(bal));document.getElementById('fIncome').textContent=money(inc);document.getElementById('fExpense').textContent=money(out);document.getElementById('fCount').textContent=data.finance.length;document.getElementById('financeList').innerHTML=data.finance.length?[...data.finance].sort((a,b)=>b.date.localeCompare(a.date)).map(x=>`<div class="item"><div><strong>${esc(x.desc)}</strong><small>${x.date} · ${x.type==='income'?'Entrada':'Saída'}</small></div><div class="${x.type==='income'?'green':'red'}" style="font-weight:700">${x.type==='income'?'+':'−'} ${money(x.amount)} <button class="icon-btn" onclick="deleteItem('finance','${x.id}')">×</button></div></div>`).join(''):'<div class="empty">Seus lançamentos aparecerão aqui.</div>';document.getElementById('financeSummary').innerHTML=`<div class="quest"><div class="quest-main"><strong>Entradas</strong></div><b class="green">${money(inc)}</b></div><div class="quest"><div class="quest-main"><strong>Saídas</strong></div><b class="red">${money(out)}</b></div><div class="quest"><div class="quest-main"><strong>Saldo</strong></div><b>${money(bal)}</b></div>`}
+const daysPT=['Segunda','Terça','Quarta','Quinta','Sexta','Sábado','Domingo'];
+function openRoutineModal(id){let b=data.routine.find(x=>x.id===id);document.getElementById('routineModalTitle').textContent=b?'Editar bloco':'Novo bloco';document.getElementById('rId').value=b?.id||'';document.getElementById('rTitle').value=b?.title||'';document.getElementById('rDay').value=b?.day??0;document.getElementById('rStart').value=b?.start??8;document.getElementById('rDuration').value=b?.duration??1;document.getElementById('rColor').value=b?.color||'#8e7be0';openModal('routineModal')}
+function saveRoutineBlock(){let title=document.getElementById('rTitle').value.trim();if(!title)return notify('Dê um nome ao bloco.');let id=document.getElementById('rId').value,block={id:id||crypto.randomUUID(),title,day:+document.getElementById('rDay').value,start:+document.getElementById('rStart').value,duration:+document.getElementById('rDuration').value,color:document.getElementById('rColor').value};if(block.start+block.duration>23)return notify('Este bloco precisa terminar até 23:00.');let clash=data.routine.some(x=>x.id!==id&&x.day===block.day&&block.start<x.start+x.duration&&x.start<block.start+block.duration);if(clash)return notify('Já existe um bloco nesse horário. Ajuste o dia ou horário.');if(id)data.routine=data.routine.map(x=>x.id===id?block:x);else data.routine.push(block);closeModal('routineModal');save();notify('Rotina atualizada.')}
+function deleteRoutineBlock(id){if(!confirm('Excluir este bloco da rotina?'))return;data.routine=data.routine.filter(x=>x.id!==id);save()}
+function clearRoutine(){if(!data.routine.length)return notify('Sua rotina já está vazia.');if(!confirm('Apagar todos os blocos da rotina?'))return;data.routine=[];save()}
+function renderRoutine(){let html='<thead><tr><th>Hora</th>'+daysPT.map(d=>`<th>${d}</th>`).join('')+'</tr></thead><tbody>';for(let h=6;h<23;h++){html+=`<tr><th>${String(h).padStart(2,'0')}:00</th>`;for(let d=0;d<7;d++){let b=data.routine.find(x=>x.day===d&&x.start===h);let covering=data.routine.some(x=>x.day===d&&h>x.start&&h<x.start+x.duration);if(b)html+=`<td class="has-block" style="--block-color:${b.color}"><div class="routine-block" style="--block-color:${b.color}"><strong>${esc(b.title)}</strong><small>${String(b.start).padStart(2,'0')}:00–${String(b.start+b.duration).padStart(2,'0')}:00</small></div></td>`;else if(covering)html+='<td class="has-block" style="opacity:.5">↳</td>';else html+='<td></td>'}html+='</tr>'}html+='</tbody>';document.getElementById('routineTable').innerHTML=html;document.getElementById('routineList').innerHTML=data.routine.length?[...data.routine].sort((a,b)=>a.day-b.day||a.start-b.start).map(b=>`<div class="item"><div><strong>${esc(b.title)}</strong><small>${daysPT[b.day]} · ${String(b.start).padStart(2,'0')}:00 · ${b.duration}h</small></div><div class="item-actions"><button class="icon-btn" onclick="openRoutineModal('${b.id}')">Editar</button><button class="icon-btn" onclick="deleteRoutineBlock('${b.id}')">×</button></div></div>`).join(''):'<div class="empty">Adicione seus primeiros blocos de tempo.</div>'}
+function saveDuel(){let winner=document.getElementById('duelWinner').value,note=document.getElementById('duelNote').value.trim(),key=today();data.duel[key]={winner,note,updated:new Date().toISOString()};save();notify('Resultado do duelo registrado.')}
+function avatarMarkup(src,fallback){return src?`<img src="${src}" alt="Avatar">`:fallback}
+function renderDuel(){
+ let entries=Object.entries(data.duel).sort((a,b)=>b[0].localeCompare(a[0]));
+ let you=entries.filter(([,x])=>x.winner==='you').length,ideal=entries.filter(([,x])=>x.winner==='ideal').length,draw=entries.filter(([,x])=>x.winner==='draw').length,total=entries.length;
+ let p=data.profile||{},a=data.alterEgo||{};
+ document.getElementById('duelWinsYou').textContent=you;document.getElementById('duelWinsIdeal').textContent=ideal;document.getElementById('duelDraws').textContent=draw;document.getElementById('duelTotal').textContent=total+' registros';
+ document.getElementById('duelPlayerName').textContent=p.name||data.name||'Jogador';document.getElementById('duelPlayerTitle').textContent=p.title||'Personagem principal';document.getElementById('duelIdealName').textContent=a.name||'Alter Ego';document.getElementById('duelIdealTitle').textContent=a.title||'Versão ideal';
+ document.getElementById('duelPlayerAvatar').innerHTML=avatarMarkup(p.avatar,'🧙');document.getElementById('duelIdealAvatar').innerHTML=avatarMarkup(a.avatar,'👑');
+ let pct=total?Math.round((you+draw*.5)/total*100):50;document.getElementById('duelPlayerPct').textContent=total?pct+'%':'—';document.getElementById('duelIdealPct').textContent=total?(100-pct)+'%':'—';document.getElementById('duelPlayerMeter').style.width=pct+'%';document.getElementById('duelRatio').textContent=total?`${you} vitórias suas · ${ideal} vitórias do Alter Ego · ${draw} empates`:'O placar será construído com suas decisões diárias.';
+ let todayEntry=data.duel[today()];document.getElementById('duelTodayStatus').textContent=todayEntry?'Resultado de hoje já registrado. Salvar novamente substitui o registro de hoje.':'Nenhum resultado registrado hoje.';
+ if(todayEntry){document.getElementById('duelWinner').value=todayEntry.winner;document.getElementById('duelNote').value=todayEntry.note||''}
+ document.getElementById('duelHistory').innerHTML=entries.length?entries.map(([date,x])=>`<div class="duel-entry"><div><strong>${new Date(date+'T12:00:00').toLocaleDateString('pt-BR',{day:'2-digit',month:'short',year:'numeric'})}</strong><small class="muted" style="display:block">${esc(x.note||'Sem reflexão registrada')}</small></div><span class="tag">${x.winner==='you'?esc(p.name||data.name||'Você')+' venceu':x.winner==='ideal'?esc(a.name||'Alter Ego')+' venceu':'Empate'}</span></div>`).join(''):'<div class="empty">Seu histórico começará quando registrar o primeiro duelo.</div>';
+}
+function saveDuel(){let winner=document.getElementById('duelWinner').value,note=document.getElementById('duelNote').value.trim(),key=today(),previous=data.duel[key];data.duel[key]={winner,note,updated:new Date().toISOString()};if(!previous){data.xp+=10;data.attr['Disciplina']=(data.attr['Disciplina']||0)+10}save();notify(previous?'Reflexão de hoje atualizada.':'Reflexão registrada · +10 XP.')}
+function imageFileToDataURL(file,callback){if(!file)return; if(file.size>2*1024*1024){notify('Escolha uma imagem de até 2 MB.');return}let reader=new FileReader();reader.onload=()=>callback(reader.result);reader.readAsDataURL(file)}
+function renderProfile(){
+ let p=data.profile||{},a=data.alterEgo||{},lvl=level(),within=data.xp%100;
+ document.getElementById('profileNameDisplay').textContent=p.name||data.name||'Aventureiro';document.getElementById('profileTitleDisplay').textContent=p.title||'Classe não definida';document.getElementById('profileBioDisplay').textContent=p.bio||'Escreva sua história. Sua jornada começa com o próximo passo.';
+ document.getElementById('idealNameDisplay').textContent=a.name||'Alter Ego';document.getElementById('idealTitleDisplay').textContent=a.title||'Sua versão ideal';document.getElementById('idealBioDisplay').textContent=[a.bio,a.values?'Princípios: '+a.values:'',a.specialization?'Especialidade: '+a.specialization:''].filter(Boolean).join(' · ')||'A versão que você está construindo, um dia de cada vez.';
+ document.getElementById('profileAvatarDisplay').innerHTML=avatarMarkup(p.avatar,'🧙');document.getElementById('idealAvatarDisplay').innerHTML=avatarMarkup(a.avatar,'👑');document.getElementById('profileLevelTag').textContent='NÍVEL '+lvl;document.getElementById('profileXPDisplay').textContent=`${data.xp} XP · ${100-within} XP para o próximo nível`;document.getElementById('profileXPBar').style.width=within+'%';
+ const vals={profileNameInput:p.name||data.name||'',profileTitleInput:p.title||'',profileBioInput:p.bio||'',profileGoalInput:p.goal||'',profileSpecInput:p.specialization||'',profileBadgeInput:p.badge||'',idealNameInput:a.name||'',idealTitleInput:a.title||'',idealBioInput:a.bio||'',idealValuesInput:a.values||'',idealSpecInput:a.specialization||''};Object.entries(vals).forEach(([id,v])=>{let el=document.getElementById(id);if(el)el.value=v});
+ document.getElementById('profileAvatarPreview').innerHTML=avatarMarkup(p.avatar,'🧙');document.getElementById('idealAvatarPreview').innerHTML=avatarMarkup(a.avatar,'👑');
+ document.getElementById('profileAttributes').innerHTML=Object.entries(data.attr).filter(([k])=>k!=='Geral').map(([k,v])=>`<div class="rpg-stat"><span>${esc(k)}</span><strong>${v} XP</strong></div>`).join('');
+ document.getElementById('attributeEditor').innerHTML=Object.entries(data.attr).filter(([k])=>k!=='Geral').map(([k,v],i)=>`<div class="field"><label>${esc(k)}</label><input type="number" min="0" max="999" step="1" id="attrEdit${i}" data-attr="${esc(k)}" value="${Math.max(0,Math.min(999,Number(v)||0))}"></div>`).join('');
+}
+function saveProfiles(){
+ data.profile=data.profile||{};data.alterEgo=data.alterEgo||{};
+ Object.assign(data.profile,{name:document.getElementById('profileNameInput').value.trim(),title:document.getElementById('profileTitleInput').value.trim()||'Aventureiro',bio:document.getElementById('profileBioInput').value.trim(),goal:document.getElementById('profileGoalInput').value.trim(),specialization:document.getElementById('profileSpecInput').value.trim(),badge:document.getElementById('profileBadgeInput').value.trim()});
+ Object.assign(data.alterEgo,{name:document.getElementById('idealNameInput').value.trim()||'Alter Ego',title:document.getElementById('idealTitleInput').value.trim()||'Versão ideal',bio:document.getElementById('idealBioInput').value.trim(),values:document.getElementById('idealValuesInput').value.trim(),specialization:document.getElementById('idealSpecInput').value.trim()});
+ save();notify('Perfil e Alter Ego salvos independentemente.');
+}
+function saveProfileAttributes(){document.querySelectorAll('#attributeEditor input[data-attr]').forEach(el=>{let k=el.dataset.attr;data.attr[k]=Math.max(0,Math.min(999,Math.floor(Number(el.value)||0)))});save();notify('Atributos atualizados.');}
+document.getElementById('profileAvatarInput').addEventListener('change',e=>imageFileToDataURL(e.target.files[0],url=>{data.profile.avatar=url;save();notify('Avatar do personagem atualizado.')}));document.getElementById('idealAvatarInput').addEventListener('change',e=>imageFileToDataURL(e.target.files[0],url=>{data.alterEgo.avatar=url;save();notify('Avatar do Alter Ego atualizado.')}));
+const achievementDefs=[
+ {id:'first_created',icon:'🌱',name:'Primeiro passo',desc:'Criou sua primeira missão.',test:()=>data.quests.length>=1},
+ {id:'first_done',icon:'⚑',name:'Missão cumprida',desc:'Concluiu sua primeira missão.',test:()=>data.done>=1},
+ {id:'first_project',icon:'◈',name:'Construtor',desc:'Criou seu primeiro projeto.',test:()=>data.projects.length>=1},
+ {id:'level_5',icon:'✦',name:'Subindo de nível',desc:'Alcançou o nível 5.',test:()=>level()>=5},
+ {id:'habit_7',icon:'↗',name:'Constância',desc:'Registrou 7 check-ins de hábitos.',test:()=>Object.values(data.habitLog).flat().length>=7},
+ {id:'finance_5',icon:'◉',name:'De olho no dinheiro',desc:'Registrou 5 movimentações financeiras.',test:()=>data.finance.length>=5},
+ {id:'routine_1',icon:'🗓️',name:'Arquiteto do tempo',desc:'Criou seu primeiro bloco de rotina.',test:()=>data.routine.length>=1},
+ {id:'duel_7',icon:'⚔️',name:'Juiz de si mesmo',desc:'Registrou 7 duelos diários.',test:()=>Object.keys(data.duel).length>=7},
+ {id:'done_10',icon:'🏅',name:'Dez vitórias',desc:'Concluiu 10 missões.',test:()=>data.done>=10},
+ {id:'secret_30',icon:'🔒',name:'Lenda em construção',desc:'Concluiu 30 missões. Conquista secreta revelada!',test:()=>data.done>=30,secret:true}
+];
+function renderAchievementCards(targetId){let unlocked=0,changed=false;achievementDefs.forEach(a=>{if(a.test()){unlocked++;if(!data.achievementUnlocks[a.id]){data.achievementUnlocks[a.id]=today();changed=true}}});if(changed)localStorage.setItem(KEY,JSON.stringify(data));let gallery=achievementDefs.map(a=>{let ok=!!data.achievementUnlocks[a.id],hidden=a.secret&&!ok;return `<div class="card achievement ${ok?'':'locked'}"><div class="achievement-icon">${hidden?'❔':a.icon}</div><strong>${hidden?'Conquista secreta':a.name}</strong><span class="muted" style="font-size:12px">${hidden?'Continue avançando para descobrir.':a.desc}</span><div class="achievement-meta">${ok?'Desbloqueada em '+new Date(data.achievementUnlocks[a.id]+'T12:00:00').toLocaleDateString('pt-BR'):'Bloqueada'}</div></div>`}).join('');let el=document.getElementById(targetId);if(el)el.innerHTML=gallery;let count=document.getElementById('achievementCount');if(count)count.textContent=unlocked+' / '+achievementDefs.length+' desbloqueadas';}
+function setTheme(theme){data.theme=theme;applyAppearance();save();notify('Tema atualizado.')}
+function setAccent(color){data.accent=color;applyAppearance();save()}
+function applyAppearance(){document.documentElement.dataset.theme=data.theme||'dark';document.documentElement.style.setProperty('--accent',data.accent||'#b9a7f5');let picker=document.getElementById('accentPicker'),select=document.getElementById('themeSelect');if(picker)picker.value=data.accent||'#b9a7f5';if(select)select.value=data.theme||'dark'}
+
+function level(){return Math.floor(data.xp/100)+1}
+function renderProgress(){let lvl=level(),within=data.xp%100;document.getElementById('statLevel').textContent=lvl;document.getElementById('statLevelSub').textContent=lvl<5?'Iniciante':lvl<10?'Explorador':lvl<20?'Estrategista':'Veterano';document.getElementById('statXP').textContent=data.xp+' XP';document.getElementById('statDone').textContent=data.done;document.getElementById('levelTitle').textContent='Nível '+lvl+' · '+document.getElementById('statLevelSub').textContent;document.getElementById('xpNext').textContent=within+' / 100 XP para o próximo nível';document.getElementById('levelPercent').textContent=within+'%';document.getElementById('levelBar').style.width=within+'%';document.getElementById('attributes').innerHTML=Object.entries(data.attr).filter(([k])=>k!=='Geral').map(([k,v])=>`<div class="attribute"><span>${k}</span><div class="progress"><i style="width:${Math.min(100,v/5)}%"></i></div><b>${v}</b></div>`).join('');let entries=Object.entries(data.attr).filter(([k])=>k!=='Geral');let max=Math.max(1,...entries.map(x=>x[1]));document.getElementById('xpChart').innerHTML=entries.map(([k,v])=>`<div class="bar-col"><div class="bar" style="height:${Math.max(3,v/max*100)}%"></div><small>${k.slice(0,4)}</small></div>`).join('');renderAchievementCards('achievements');renderAchievementCards('achievementGallery');document.getElementById('sQuests').textContent=data.done;document.getElementById('sHabits').textContent=data.habits.length;document.getElementById('sProjects').textContent=data.projects.length}
+function renderHome(){let due=data.quests.filter(q=>!q.done&&q.date<=today()).slice(0,6);document.getElementById('todayQuests').innerHTML=due.length?due.map(q=>`<div class="quest"><input type="checkbox" onchange="completeQuest('${q.id}')"><div class="quest-main"><strong>${esc(q.title)}</strong><small>${esc(q.type)} · ${esc(q.attr)}</small></div><span class="xp">+${q.xp} XP</span></div>`).join(''):'<div class="empty">Nenhuma missão para hoje. Crie uma tarefa importante.</div>';let p=data.projects.filter(x=>!x.done).slice(0,3);document.getElementById('homeProjects').innerHTML=p.length?p.map(x=>`<div class="quest"><div class="quest-main"><strong>${esc(x.title)}</strong><small>${x.steps.filter(s=>s.done).length}/${x.steps.length} etapas concluídas</small></div><span class="tag">${x.steps.length?Math.round(x.steps.filter(s=>s.done).length/x.steps.length*100):0}%</span></div>`).join(''):'<div class="empty">Nenhum projeto cadastrado.</div>'}
+function renderSeason(){let start=new Date(data.seasonStart+'T00:00:00'),days=Math.max(0,Math.floor((new Date()-start)/86400000)),pct=Math.min(100,Math.round(days/90*100));document.getElementById('seasonName').textContent='Temporada · '+data.season;document.getElementById('seasonDates').textContent=days+' dias de jornada';document.getElementById('seasonTitle').textContent='Temporada · '+data.season;document.getElementById('seasonProgressText').textContent=days+' de 90 dias decorridos';document.getElementById('seasonBar').style.width=pct+'%'}
+function render(){let d=new Date();document.getElementById('todayLabel').textContent=d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'short'});let h=d.getHours();document.getElementById('greeting').textContent=(h<12?'Bom dia':h<18?'Boa tarde':'Boa noite')+(data.name?', '+data.name:' .');renderQuests();renderProjects();renderHabits();renderRoutine();renderDuel();renderProfile();renderCalendar();renderFinance();renderProgress();renderHome();renderSeason();applyAppearance();document.getElementById('userName').value=data.name;document.getElementById('seasonInput').value=data.season}
+function saveSettings(){data.name=document.getElementById('userName').value.trim();data.season=document.getElementById('seasonInput').value.trim()||'Fundação';save();notify('Configurações salvas.')}
+function saveVacation(){data.vacation=document.getElementById('vacationActive').checked;data.mode=document.getElementById('vacationMode').value;closeModal('vacationModal');save();notify(data.vacation?(data.mode==='hardcore'?'Modo férias hardcore ativado.':'Modo férias equilibrado ativado.'):'Modo férias desativado.')}
+function exportData(){let blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'}),a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='lifeos-backup.json';a.click();URL.revokeObjectURL(a.href)}
+function importData(e){let f=e.target.files[0];if(!f)return;let r=new FileReader();r.onload=()=>{try{let obj=JSON.parse(r.result);if(!obj.quests||!obj.attr)throw Error();data=obj;save();notify('Backup importado.')}catch(err){notify('Arquivo inválido.')}};r.readAsText(f)}
+function resetData(){if(!confirm('Isso apagará permanentemente os dados locais do LifeOS neste navegador. Exportou um backup?'))return;data=fresh();save();notify('Dados reiniciados.')}
+document.getElementById('qDate').value=today();document.getElementById('eDate').value=today();document.getElementById('fDate').value=today();document.getElementById('rStart').innerHTML=Array.from({length:17},(_,i)=>`<option value="${i+6}">${String(i+6).padStart(2,'0')}:00</option>`).join('');render();
+</script>
+
+<script>
+(function(){
+ const cfg=window.LIFEOS_SUPABASE||{};
+ const gate=document.getElementById('authGate'),app=document.getElementById('lifeApp'),status=document.getElementById('authStatus'),syncBox=document.getElementById('syncStatus'),syncLabel=document.getElementById('syncLabel');
+ const ready=!!(window.supabase&&cfg.url&&cfg.anonKey&&!cfg.url.includes('SEU_')&&!cfg.anonKey.includes('SUA_'));
+ let client=null,user=null,channel=null,pushing=false,queued=null,lastLocal=null;
+ function authMsg(s){status.textContent=s}
+ function syncMsg(s,kind){syncBox.style.display='block';syncLabel.textContent=s;syncBox.querySelector('.sync-dot').className='sync-dot '+(kind||'')}
+ function showApp(){gate.style.display='none';app.style.visibility='visible';}
+ function hideApp(){gate.style.display='grid';app.style.visibility='hidden'}
+ function localData(){try{return JSON.parse(localStorage.getItem('lifeos_v1_data')||'null')}catch(e){return null}}
+ async function loadCloud(){
+  syncMsg('Carregregando seus dados','');
+  const {data:row,error}=await client.from('lifeos_user_data').select('payload,updated_at').eq('user_id',user.id).maybeSingle();
+  if(error) throw error;
+  const local=localData();
+  if(!row){
+   const initial=local||data;
+   const {error:upErr}=await client.from('lifeos_user_data').upsert({user_id:user.id,payload:initial,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+   if(upErr) throw upErr;
+   data=initial;
+   localStorage.setItem(KEY,JSON.stringify(data));
+   syncMsg('Dados locais migrados para a nuvem','online');
+  }else{
+   data={...fresh(),...(row.payload||{})};
+   data.routine=data.routine||[];data.duel=data.duel||{};data.achievementUnlocks=data.achievementUnlocks||{};
+   data.attr={...fresh().attr,...(data.attr||{})};data.profile={...fresh().profile,...(data.profile||{})};data.alterEgo={...fresh().alterEgo,...(data.alterEgo||{})};
+   localStorage.setItem(KEY,JSON.stringify(data));
+   syncMsg('Sincronizado','online');
+  }
+  render();
+  showApp();
+  subscribe();
+ }
+ async function push(payload){
+  if(!user||!client)return;
+  queued=JSON.parse(JSON.stringify(payload));
+  if(pushing)return;
+  pushing=true;
+  try{
+   while(queued){
+    const current=queued;queued=null;
+    syncMsg('Sincronizando…','');
+    const {error}=await client.from('lifeos_user_data').upsert({user_id:user.id,payload:current,updated_at:new Date().toISOString()},{onConflict:'user_id'});
+    if(error)throw error;
+   }
+   syncMsg('Sincronizado','online');
+  }catch(e){console.error(e);syncMsg('Falha ao sincronizar — alterações mantidas neste dispositivo','offline')}
+  finally{pushing=false}
+ }
+ function subscribe(){
+  if(channel)client.removeChannel(channel);
+  channel=client.channel('lifeos-sync-'+user.id).on('postgres_changes',{event:'UPDATE',schema:'public',table:'lifeos_user_data',filter:'user_id=eq.'+user.id},payload=>{
+   if(pushing)return;
+   const incoming=payload.new?.payload;
+   if(!incoming)return;
+   data={...fresh(),...incoming};
+   data.attr={...fresh().attr,...(data.attr||{})};data.profile={...fresh().profile,...(data.profile||{})};data.alterEgo={...fresh().alterEgo,...(data.alterEgo||{})};
+   localStorage.setItem(KEY,JSON.stringify(data));render();syncMsg('Atualizado de outro dispositivo','online');
+  }).subscribe();
+ }
+ window.LifeCloud={get user(){return user},push};
+ document.getElementById('authLogin').onclick=async()=>{
+  if(!ready)return authMsg('Configure primeiro o arquivo config.js com os dados do seu projeto Supabase.');
+  const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
+  authMsg('Entrando…');
+  const {data:res,error}=await client.auth.signInWithPassword({email,password});
+  if(error)return authMsg(error.message);
+  user=res.user;try{await loadCloud()}catch(e){authMsg('Erro ao carregar dados: '+e.message);console.error(e)}
+ };
+ document.getElementById('authSignup').onclick=async()=>{
+  if(!ready)return authMsg('Configure primeiro o arquivo config.js com os dados do seu projeto Supabase.');
+  const email=document.getElementById('authEmail').value.trim(),password=document.getElementById('authPassword').value;
+  if(password.length<8)return authMsg('Use uma senha com pelo menos 8 caracteres.');
+  authMsg('Criando conta…');
+  const {data:res,error}=await client.auth.signUp({email,password});
+  if(error)return authMsg(error.message);
+  if(res.session){user=res.user;try{await loadCloud()}catch(e){authMsg(e.message)}}
+  else authMsg('Conta criada. Confirme seu e-mail e depois entre.');
+ };
+ if(!ready){hideApp();authMsg('Falta configurar o Supabase. Veja o README incluído no pacote.');return}
+ client=window.supabase.createClient(cfg.url,cfg.anonKey);
+ client.auth.getSession().then(async({data:res})=>{
+  if(res.session){user=res.session.user;try{await loadCloud()}catch(e){authMsg('Não foi possível carregar: '+e.message);console.error(e)}}
+ });
+ client.auth.onAuthStateChange(async(event,session)=>{
+  if(event==='SIGNED_OUT'){user=null;hideApp()}
+  if(event==='SIGNED_IN'&&!user&&session){user=session.user;try{await loadCloud()}catch(e){authMsg(e.message)}}
+ });
+ window.addEventListener('online',()=>{if(user)push(data);else syncMsg('Online — entre para sincronizar','')});
+ window.addEventListener('offline',()=>syncMsg('Offline — dados locais','offline'));
+})();
+</script>
+
+<script>if('serviceWorker' in navigator && location.protocol!=='file:'){navigator.serviceWorker.register('./sw.js').catch(console.warn)}</script>
+</body></html>
